@@ -1,0 +1,104 @@
+{
+  "name": "azure-dev-ai",
+  "displayName": "Azure Dev AI",
+  "description": "Azure DevOps tasks and AI development assistant",
+  "version": "0.0.1",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+
+  "contributes": {
+
+    "commands": [
+      {
+        "command": "azureDevAi.setPat",
+        "title": "Azure Dev AI: Set Azure DevOps PAT"
+      },
+      {
+        "command": "azureDevAi.testConnection",
+        "title": "Azure Dev AI: Test MCP Connection"
+      },
+      {
+        "command": "azureDevAi.refreshTasks",
+        "title": "Azure Dev AI: Refresh Tasks"
+      },
+      {
+        "command": "azureDevAi.openTask",
+        "title": "Open Azure DevOps Task"
+      }
+    ],
+
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "azureDevAi",
+          "title": "Azure Dev AI",
+          "icon": "$(checklist)"
+        }
+      ]
+    },
+
+    "views": {
+      "azureDevAi": [
+        {
+          "id": "myAzureTasks",
+          "name": "My Azure Tasks",
+          "contextualTitle": "My Azure Tasks",
+          "icon": ""
+        }
+      ]
+    },
+
+    "menus": {
+      "view/title": [
+        {
+          "command": "azureDevAi.refreshTasks",
+          "when": "view == myAzureTasks",
+          "group": "navigation"
+        }
+      ]
+    },
+
+    "configuration": {
+      "title": "Azure Dev AI",
+      "properties": {
+        "azureDevAi.organization": {
+          "type": "string",
+          "description": "Azure DevOps organization name."
+        },
+        "azureDevAi.project": {
+          "type": "string",
+          "description": "Azure DevOps project name."
+        },
+        "azureDevAi.team": {
+          "type": "string",
+          "description": "Azure DevOps team name. Optional."
+        }
+      }
+    }
+  },
+
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc --watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+
+  "dependencies": {
+    "@modelcontextprotocol/client": "^2.0.0"
+  },
+
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "^1.103.0",
+    "typescript": "^5.9.0"
+  }
+}
